@@ -1,0 +1,1 @@
+ng new --directory . --style scss --routing false --prefix mlnr --skip-install  Millionaire
