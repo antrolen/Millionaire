@@ -1,0 +1,66 @@
+<!-- <mlnr-text-box *ngFor="let item of prise; let i = index" [text]="prise.at(i)"> -->
+<!-- </mlnr-text-box> -->
+
+<div class="mlnr-levels-area">
+    <mlnr-level *ngFor="let item of prise; let i = index" 
+    [text]="prise.at(i)?.toString()"
+    [currentLevel]="i"
+    [activeLevel]="level" 
+    ></mlnr-level>
+
+</div>
+
+
+
+<div [ngSwitch]="state" class="mlnr-quiz-area">
+
+    <div class="mlnr-question-area">
+        <div *ngSwitchCase="State.START">
+            <mlnr-text-box   (click)="onStart()" [text]="startText"></mlnr-text-box>
+        </div>
+    </div>
+
+    
+
+    <!--  -->
+    <div *ngSwitchCase="State.QUIZ" >
+        <div>
+            <div class="mlnr-question-area">
+                <mlnr-text-box [text]="questions.at(level)?.question"></mlnr-text-box>
+            </div>
+            
+            <div class="mlnr-answers-area">
+                <mlnr-quizanswer *ngFor="let a of questions.at(level)?.answers; let i = index" [text]="a"
+                [currentNumber]="i" [rightNumber]="questions.at(level)?.rightAnswer"
+                (choosenAnswerNumber)="onChoosingQuizAnswer($event)"></mlnr-quizanswer>
+            </div>    
+            
+        </div>
+    </div>
+    <!--  -->
+    <div *ngSwitchCase="State.DIALOG" >
+        <div class="mlnr-question-area">
+            <mlnr-text-box [text]="dialogQ.question"></mlnr-text-box>
+        </div>
+        <div class="mlnr-answers-area">
+            <mlnr-text-box (click)="onChoosingDialogAnswer(DialogAnswers.YES)"
+                [text]="dialogQ.answerYes"></mlnr-text-box>
+                <mlnr-text-box (click)="onChoosingDialogAnswer(DialogAnswers.NO)" [text]="dialogQ.answerNo"></mlnr-text-box>
+        </div>
+    </div>
+    <!--  -->
+    <div *ngSwitchCase="State.RESULT_WIN" >
+        <div class="mlnr-win-area"><mlnr-text-box [text]="winText"></mlnr-text-box></div>
+        <div class="mlnr-question-area" ><mlnr-text-box (click)="onStart()" [text]="startText"></mlnr-text-box></div>
+        
+        
+    </div>
+
+    <!--  -->
+    <div *ngSwitchCase="State.RESULT_LOSE"  >
+        <div class="mlnr-lose-area"><mlnr-text-box [text]="loseText"></mlnr-text-box></div>
+        <div class="mlnr-question-area" ><mlnr-text-box (click)="onStart()" [text]="startText"></mlnr-text-box></div>
+        
+        
+    </div>
+</div>
