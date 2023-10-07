@@ -13,4 +13,4 @@
 # ng generate component components/quizanswer
 # ng generate component components/text-box
 
-#
+# git archive --format=zip HEAD -o zipfile.zip
